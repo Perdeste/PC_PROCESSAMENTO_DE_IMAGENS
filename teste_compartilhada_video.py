@@ -23,7 +23,7 @@ def image_processing(file_name: str, start: int, end: int, mascara: np.ndarray, 
 
 
 if __name__ == '__main__':
-    file_name = 'teste2.mp4'
+    file_name = 'teste.mp4'
     video_size = (540, 380)
     # mascara = np.array([[1, 1, 1],
     #                     [0, 0, 0],
