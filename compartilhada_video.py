@@ -21,7 +21,7 @@ def insert_frames(output_list: list, filename: str, video_size: tuple, fps: int)
 
 
 '''Função para controlar o fluxo de execução'''
-def execute_controller(thread: int, filename: str, video, video_size: tuple, mascara: list, fps: int) -> None:
+def execute_controller(thread: int, filename: str, video, video_size: tuple, mascara: np.ndarray, fps: int) -> None:
     output_list = []
     try:
         # Iniciar a thread que fara o controle da inserção dos frames no arquivo final
@@ -51,7 +51,7 @@ def execute_controller(thread: int, filename: str, video, video_size: tuple, mas
 
 
 '''Função executada por n threads, no qual aplica-se as 3 transformações na imagem'''
-def filter_frame(frame: np.ndarray, output_list: list, position: int, video_size: tuple, mascara: list) -> None:
+def filter_frame(frame: np.ndarray, output_list: list, position: int, video_size: tuple, mascara: np.ndarray) -> None:
     frame_input = cv2.resize(frame, video_size, fx = 0, fy = 0,
                             interpolation=cv2.INTER_CUBIC)   
     frame_input = cv2.cvtColor(frame_input, cv2.COLOR_BGR2GRAY)
@@ -61,7 +61,7 @@ def filter_frame(frame: np.ndarray, output_list: list, position: int, video_size
 
 
 '''Função para ser chamada na main'''
-def run_parallel_processing(thread, filename, video_size, mascara) -> None:
+def run_parallel_processing(thread: int, filename: str, video_size: tuple, mascara: np.ndarray) -> None:
     print(f'Iniciando processamento paralelo do vídeo {filename}...')
     file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', filename)
     filename = filename.split('.')[0]
