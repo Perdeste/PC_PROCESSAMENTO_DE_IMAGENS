@@ -3,15 +3,17 @@ import os
 from time import time
 
 
-def run_serial_processing(file_name, video_size, mascara):
-    file_output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', file_name.replace('.mp4','') + '_serial_tratado.avi')
-    file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', file_name)
+def run_serial_processing(filename, video_size, mascara):
+    print(f'Iniciando processamento serial do vídeo {filename}...')
+    file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', filename)
+    filename = filename.split('.')[0]
+    file_output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', filename + '_serial_tratado.avi')
     video = cv2.VideoCapture(file_input_path)
     fps = video.get(cv2.CAP_PROP_FPS)
     output = cv2.VideoWriter(file_output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, video_size, isColor=False)
     try:
         inicio = time()
-        while video.isOpened():
+        while True:
             ret, frame = video.read()
             if not ret:
                 break
