@@ -1,0 +1,13 @@
+servers:
+    -
+        host: 34.95.171.210
+        username: root
+        port: 22
+        password: '123'
+        remote_path: //    
+    -
+        host: 34.95.186.107
+        username: root
+        port: 22
+        password: '123'
+        remote_path: //
