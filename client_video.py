@@ -35,15 +35,18 @@ def upload_file_scp(input_path: str, ssh: paramiko.SSHClient, remote_path: str):
         print('Erro no envio do arquivo: ' + str(e))
 
 
-def run_client_parallel():
-    with open('addresses.txt') as f:
+def run_client_parallel(input_path: str):
+    port = 22
+    username = "root"    
+    password = "123"
+    with open('addresses.yml') as f:
         servers_config = yaml.safe_load(f)
-    for host in server_list:
-        username = 'root'
-        password = '123'
-        port = 22
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh_connection(host, username, password, ssh, port)
-        upload_file_scp()
+    for host in servers_config:
+        print(host) 
+         
+        # ssh = paramiko.SSHClient()
+        # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # ssh_connection(host, username, password, ssh, port)
+        # upload_file_scp(input_path=input_path, ssh=ssh, remote_path=remote_path)
     
+run_client_parallel("input/teste.mp4")

@@ -4,10 +4,10 @@ servers:
         username: root
         port: 22
         password: '123'
-        remote_path: //    
+        remote_path: "~/pc/input/"
     -
         host: 34.95.186.107
         username: root
         port: 22
         password: '123'
-        remote_path: //
+        remote_path: "~/pc/input/"
