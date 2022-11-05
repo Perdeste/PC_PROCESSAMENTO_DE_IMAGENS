@@ -1,13 +1,17 @@
 servers:
     -
-        host: 34.95.171.210
-        username: root
-        port: 22
-        password: '123'
-        remote_path: "~/pc/input/"
-    -
         host: 34.95.186.107
+        hostname: instance-1
         username: root
-        port: 22
         password: '123'
+        port: 22  
         remote_path: "~/pc/input/"
+        retry: 5
+    -
+        host: 34.95.171.210
+        hostname: instance-2
+        username: root
+        password: '123'
+        port: 22
+        remote_path: "~/pc/input/"
+        retry: 5

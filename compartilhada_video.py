@@ -73,4 +73,4 @@ def run_parallel_processing(thread: int, filename: str, video_size: tuple, masca
     fps = video.get(cv2.CAP_PROP_FPS)
     inicio = time()
     execute_controller(thread, filename, video, video_size, mascara, fps)
-    print(f'Processamento em Paralelo\nTempo de execução: {time() - inicio}')
+    print(f'Processamento em Memória Compartilhada\nTempo de execução: {time() - inicio}')
