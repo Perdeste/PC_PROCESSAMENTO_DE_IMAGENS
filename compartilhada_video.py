@@ -7,7 +7,7 @@ from time import time
 
 '''Função que insere os frames prontos em um arquivo de vídeo de forma ordenada, ele é chamado apenas uma vez'''
 def insert_frames(output_dict: list, filename: str, video_size: tuple, fps: int, frame_count: int):
-    file_output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', filename + '_parallel_tratado.avi')
+    file_output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', filename + '_compartilhada_tratado.avi')
     output = cv2.VideoWriter(file_output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, video_size, isColor=False)
     position = 0
     while position < frame_count:
@@ -35,20 +35,22 @@ def execute_controller(thread: int, filename: str, video, video_size: tuple, mas
     thread_list = []
     try:
         # Iniciar a thread que fara o controle da inserção dos frames no arquivo final. Existe gargalo de memória
-        # TODO: Para não precisar ordenar a lista de frames, utilizamos um dicionario. Verificar se existe uma maneira mais eficiente de uso de memória.
         frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-        insert_thread = threading.Thread(target=insert_frames, args=(output_dict, filename, video_size, fps, frame_count))
+        insert_thread = threading.Thread(target=insert_frames, 
+                                        args=(output_dict, filename, video_size, fps, frame_count))
         insert_thread.start()
         position = 0
         # Loop para executar n threads
         for _ in range(0, thread):
-            position = create_frame_process(video, output_dict, thread_list, position, video_size, mascara)
+            position = create_frame_process(video, output_dict, 
+                                            thread_list, position, video_size, mascara)
         # Loop para controlar o encerramento do processamento de cada thread, quando a thread terminar de executar ela ja coloca outro frame para processar (de forma ordenada)
         while len(thread_list) > 0:
             process = thread_list.pop(0)
             process.join()
-            position = create_frame_process(video, output_dict, thread_list, position, video_size, mascara)
-        # Espera a thread de inserir terminar para finalizar a execução
+            position = create_frame_process(video, output_dict, 
+                                            thread_list, position, video_size, mascara)
+        # Espera a thread de inserção terminar para finalizar a execução
         insert_thread.join()
     finally:
         video.release()
@@ -65,7 +67,7 @@ def filter_frame(frame: np.ndarray, output_dict: list, position: int, video_size
 
 
 '''Função para ser chamada na main'''
-def run_parallel_processing(thread: int, filename: str, video_size: tuple, mascara: np.ndarray) -> None:
+def run_compartilhada_processing(thread: int, filename: str, video_size: tuple, mascara: np.ndarray) -> None:
     print(f'Iniciando processamento paralelo do vídeo {filename}...')
     file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', filename)
     filename = filename.split('.')[0]
