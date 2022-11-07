@@ -81,7 +81,7 @@ def end_command(end_str, channel, ssh):
 
 '''Função que será executada por uma thread para controlar o envio de um vídeo e o recebimento do mesmo processado'''
 def server_execution(server: dict, input_path: str, count: int, get_frames: int, video_size: tuple):
-    filename = input_path.split('\\')[-1]
+    filename = input_path.split('/')[-1]
     ssh = ssh_connection(server)
     try:
         # Upload do arquivo para o servidor
@@ -124,4 +124,4 @@ def run_distribuida_processing(filename: str, video_size: tuple):
     for process in thread_list:
         process.join()
     concat_videos(file_output_path)
-    print(f'Processamento em Memória Distribuída\nTempo de execução: {time.time() - inicio}')
+    print(f'Dist,{time.time() - inicio}')

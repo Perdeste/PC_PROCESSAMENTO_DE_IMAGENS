@@ -68,11 +68,11 @@ def filter_frame(frame: np.ndarray, output_dict: list, position: int, video_size
 
 '''Função para ser chamada na main'''
 def run_compartilhada_processing(thread: int, filename: str, video_size: tuple, mascara: np.ndarray) -> None:
-    print(f'Iniciando processamento paralelo do vídeo {filename}...')
+    # print(f'Iniciando processamento paralelo do vídeo {filename}...')
     file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', filename)
     filename = filename.split('.')[0]
     video = cv2.VideoCapture(file_input_path)
     fps = video.get(cv2.CAP_PROP_FPS)
     inicio = time()
     execute_controller(thread, filename, video, video_size, mascara, fps)
-    print(f'Processamento em Memória Compartilhada\nTempo de execução: {time() - inicio}')
+    print(f'Compartilhado,{time() - inicio}')

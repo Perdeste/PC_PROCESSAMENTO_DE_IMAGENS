@@ -4,7 +4,7 @@ from time import time
 
 
 def run_serial_processing(filename, video_size, mascara):
-    print(f'Iniciando processamento serial do vídeo {filename}...')
+    # print(f'Iniciando processamento serial do vídeo {filename}...')
     file_input_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input', filename)
     filename = filename.split('.')[0]
     file_output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', filename + '_serial_tratado.avi')
@@ -22,7 +22,7 @@ def run_serial_processing(filename, video_size, mascara):
             frame_input = cv2.cvtColor(frame_input, cv2.COLOR_BGR2GRAY)
             frame_output = cv2.filter2D(frame_input, ddepth=-1, kernel=mascara)
             output.write(frame_output)
-        print(f'Processamento em Série\nTempo de execução: {time() - inicio}')
+        print(f'Série,{time() - inicio}')
     finally:
         video.release()
         output.release()
