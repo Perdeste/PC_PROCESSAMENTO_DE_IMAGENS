@@ -21,9 +21,9 @@ if __name__ == '__main__':
         mascara = np.array([[-1, 0, 1],
                             [-1, 0, 1],
                             [-1, 0, 1]])
-        # run_serial_processing(filename, video_size, mascara)
+        run_serial_processing(filename, video_size, mascara)
         time.sleep(1)
-        # run_compartilhada_processing(5, filename, video_size, mascara)
+        run_compartilhada_processing(5, filename, video_size, mascara)
         time.sleep(1)
         run_distribuida_processing(filename, video_size)
     else:
